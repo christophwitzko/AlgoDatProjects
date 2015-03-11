@@ -13,6 +13,10 @@ namespace LinkedListExample {
       this.Next = next;
       this.Value = value;
     }
+
+    public override string ToString () {
+      return this.Value.ToString();
+    }
   }
 
   public class LinkedList {
@@ -113,7 +117,7 @@ namespace LinkedListExample {
     }
 
     public bool Contains(int value) {
-      return FindLast(value) != null;
+      return Find(value) != null;
     }
 
     public LinkedListNode Remove (int value) {
