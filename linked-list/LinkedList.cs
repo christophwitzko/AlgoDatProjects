@@ -7,10 +7,11 @@ namespace LinkedListExample {
     public LinkedListNode Next;
     public int Value;
 
-    public LinkedListNode (LinkedList list, int value, LinkedListNode next) {
+    public LinkedListNode (LinkedList list, LinkedListNode previous, LinkedListNode next, int value) {
       this.List = list;
-      this.Value = value;
+      this.Previous = previous;
       this.Next = next;
+      this.Value = value;
     }
   }
 
@@ -25,17 +26,20 @@ namespace LinkedListExample {
       this.Count = 0;
     }
 
-    public void AddFirst (int value) {
-      LinkedListNode el = new LinkedListNode(this, value, this.First);
-      this.First = el;
+    public LinkedListNode AddFirst (int value) {
+      LinkedListNode el = new LinkedListNode(this, null, this.First, value);
       if (this.Count == 0) {
         this.Last = el;
+      } else {
+        this.First.Previous = el;
       }
+      this.First = el;
       this.Count++;
+      return el;
     }
 
-    public void AddLast (int value) {
-      LinkedListNode el = new LinkedListNode(this, value, null);
+    public LinkedListNode AddLast (int value) {
+      LinkedListNode el = new LinkedListNode(this, this.Last, null, value);
       if (this.Count == 0) {
         this.First = el;
       } else {
@@ -43,37 +47,95 @@ namespace LinkedListExample {
       }
       this.Last = el;
       this.Count++;
+      return el;
     }
 
-    public void AddAfter (LinkedListNode sel, int value) {
+    public LinkedListNode AddAfter (LinkedListNode sel, int value) {
       if (!sel.List.Equals(this)) {
         throw new Exception("invalid list node");
       }
       if (sel.Next == null) {
-        AddLast(value);
-        return;
+        return AddLast(value);
       }
-      LinkedListNode el = new LinkedListNode(this, value, sel.Next);
+      LinkedListNode el = new LinkedListNode(this, sel, sel.Next, value);
+      sel.Next.Previous = el;
       sel.Next = el;
       this.Count++;
+      return el;
     }
 
-    public void AddBefore (LinkedListNode eel, int value) {
-      
+    public LinkedListNode AddBefore (LinkedListNode sel, int value) {
+      if (!sel.List.Equals(this)) {
+        throw new Exception("invalid list node");
+      }
+      if (sel.Previous == null) {
+        return AddFirst(value);
+      }
+      LinkedListNode el = new LinkedListNode(this, sel.Previous, sel, value);
+      sel.Previous.Next = el;
+      sel.Previous = el;
+      this.Count++;
+      return el;
     }
 
-    private string Traverse (string ret, LinkedListNode el) {
+    public void Clear () {
+
+    }
+
+    public bool Contains(int value) {
+      return false;
+    }
+
+    public LinkedListNode Find (int value) {
+      return null;
+    }
+
+    public LinkedListNode FindLast (int value) {
+      return null;
+    }
+
+    public LinkedListNode Remove (int value) {
+      return null;
+    }
+
+    public LinkedListNode Remove (LinkedListNode sel) {
+      return null;
+    }
+
+    public LinkedListNode RemoveFirst () {
+      return null;
+    }
+
+    public LinkedListNode RemoveLast () {
+      return null;
+    }
+
+    private string TraverseLeft (string ret, LinkedListNode el) {
       if (el != null) {
         ret += "\t" + el.Value + "\n";
-        return Traverse(ret, el.Next);
+        return TraverseLeft(ret, el.Next);
       }
       return ret;
     }
 
-    public override string ToString() {
-      string ret = Traverse("(" + this.Count + ")[\n", this.First);
-      ret += "]";
+    private string TraverseRight (string ret, LinkedListNode el) {
+      if (el != null) {
+        ret += "\t" + el.Value + "\n";
+        return TraverseRight(ret, el.Previous);
+      }
       return ret;
+    }
+
+    public void PrintLeft () {
+      Console.WriteLine(TraverseLeft("(" + this.Count + ")[\n", this.First) + "]");
+    }
+
+    public void PrintRight () {
+      Console.WriteLine(TraverseRight("(" + this.Count + ")[\n", this.Last) + "]");
+    }
+
+    public override string ToString () {
+      return TraverseLeft("(" + this.Count + ")[\n", this.First) + "]";
     }
   }
 }
