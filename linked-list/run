@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mcs Program.cs LinkedList.cs && mono Program.exe
