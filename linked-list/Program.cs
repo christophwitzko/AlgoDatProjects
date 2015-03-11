@@ -12,6 +12,7 @@ namespace LinkedListClient {
       LinkedListNode node = list.AddAfter(list.AddAfter(list.First, 111), 222);
       list.AddBefore(node, 333);
       list.PrintLeft();
+      list.Clear();
       list.PrintRight();
     }
   }

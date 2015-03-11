@@ -78,8 +78,19 @@ namespace LinkedListExample {
       return el;
     }
 
-    public void Clear () {
+    private void TraverseClear (LinkedListNode el) {
+      if (el != null) {
+        el.Previous = null;
+        TraverseClear(el.Next);
+        el.Next = null;
+      }
+    }
 
+    public void Clear () {
+      this.Last = null;
+      TraverseClear(this.First);
+      this.First = null;
+      this.Count = 0;
     }
 
     public bool Contains(int value) {
