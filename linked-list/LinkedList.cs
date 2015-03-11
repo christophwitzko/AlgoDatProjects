@@ -120,20 +120,50 @@ namespace LinkedListExample {
       return Find(value) != null;
     }
 
-    public LinkedListNode Remove (int value) {
-      return null;
+    public LinkedListNode Remove (LinkedListNode sel) {
+      if (this.Count < 1) {
+        return null;
+      }
+      if (!sel.List.Equals(this)) {
+        throw new Exception("invalid list node");
+      }
+      if (this.Count == 1) {
+        if (!sel.Equals(this.First)) {
+          throw new Exception("invalid list node");
+        }
+        this.First = null;
+        this.Last = null;
+        this.Count--;
+        return sel;
+      }
+      if (sel.Previous == null) {
+        this.First = sel.Next;
+        sel.Next.Previous = null;
+      } else if (sel.Next == null) {
+        this.Last = sel.Previous;
+        sel.Previous.Next = null;
+      } else {
+        sel.Previous.Next = sel.Next;
+        sel.Next.Previous = sel.Previous;
+      }
+      this.Count--;
+      return sel;
     }
 
-    public LinkedListNode Remove (LinkedListNode sel) {
+    public LinkedListNode RemoveAll (int value) {
+      LinkedListNode fnd;
+      while ((fnd = Find(value)) != null) {
+        Remove(fnd);
+      }
       return null;
     }
 
     public LinkedListNode RemoveFirst () {
-      return null;
+      return Remove(this.First);
     }
 
     public LinkedListNode RemoveLast () {
-      return null;
+      return Remove(this.Last);
     }
 
     private string TraversePrint (bool reverse, string ret, LinkedListNode el) {

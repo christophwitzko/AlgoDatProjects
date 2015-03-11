@@ -7,17 +7,16 @@ namespace LinkedListClient {
       LinkedList list = new LinkedList();
       for (int i = 0; i < 5; i++) {
         list.AddFirst(i);
-        list.AddLast(i * 2);
+        list.AddLast(i);
       }
-      LinkedListNode node = list.AddAfter(list.AddAfter(list.First, 111), 222);
-      list.AddBefore(node, 333);
-      list.PrintLeft();
-      LinkedListNode found = list.Find(2);
-      LinkedListNode foundLast = list.FindLast(2);
-      Console.WriteLine(found.Previous);
-      Console.WriteLine(foundLast.Next);
-      //list.Clear();
+      LinkedListNode node = list.AddAfter(list.First, 222);
+      list.AddBefore(node, 111);
+      //LinkedListNode found = list.Find(111);
       list.PrintRight();
+      //list.Remove(found);
+      list.RemoveAll(2);
+      list.PrintRight();
+      list.PrintLeft();
     }
   }
 }
