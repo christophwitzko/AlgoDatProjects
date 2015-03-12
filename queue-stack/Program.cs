@@ -2,7 +2,7 @@ using QueueExample;
 using StackExample;
 using System;
 
-namespace QueueExample {
+namespace QueueStackExample {
   public class Program {
     public static void Main(string[] args) {
       Queue queue = new Queue();
