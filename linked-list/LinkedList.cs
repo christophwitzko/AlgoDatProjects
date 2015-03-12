@@ -19,6 +19,17 @@ namespace LinkedListExample {
     }
   }
 
+  public class InvalidLinkedListNode: Exception {
+    public InvalidLinkedListNode () {
+    }
+
+    public InvalidLinkedListNode (string message): base(message){
+    }
+
+    public InvalidLinkedListNode (string message, Exception inner): base(message, inner) {
+    }
+  }
+
   public class LinkedList {
     public LinkedListNode First;
     public LinkedListNode Last;
@@ -56,7 +67,7 @@ namespace LinkedListExample {
 
     public LinkedListNode AddAfter (LinkedListNode sel, int value) {
       if (!sel.List.Equals(this)) {
-        throw new Exception("invalid list node");
+        throw new InvalidLinkedListNode();
       }
       if (sel.Next == null) {
         return AddLast(value);
@@ -70,7 +81,7 @@ namespace LinkedListExample {
 
     public LinkedListNode AddBefore (LinkedListNode sel, int value) {
       if (!sel.List.Equals(this)) {
-        throw new Exception("invalid list node");
+        throw new InvalidLinkedListNode();
       }
       if (sel.Previous == null) {
         return AddFirst(value);
@@ -125,11 +136,11 @@ namespace LinkedListExample {
         return null;
       }
       if (!sel.List.Equals(this)) {
-        throw new Exception("invalid list node");
+        throw new InvalidLinkedListNode();
       }
       if (this.Count == 1) {
         if (!sel.Equals(this.First)) {
-          throw new Exception("invalid list node");
+          throw new InvalidLinkedListNode();
         }
         this.First = null;
         this.Last = null;

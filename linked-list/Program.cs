@@ -11,9 +11,7 @@ namespace LinkedListExample {
       }
       LinkedListNode node = list.AddAfter(list.First, 222);
       list.AddBefore(node, 111);
-      //LinkedListNode found = list.Find(111);
       list.PrintRight();
-      //list.Remove(found);
       list.RemoveAll(2);
       list.PrintRight();
     }
