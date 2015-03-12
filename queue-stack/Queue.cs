@@ -3,10 +3,10 @@ using System;
 
 namespace QueueExample {
   public class Queue {
-    private LinkedList List;
+    private LinkedList<int> List;
 
     public Queue () {
-      this.List = new LinkedList();
+      this.List = new LinkedList<int>();
     }
 
     public void Enqueue (int value) {
@@ -14,7 +14,7 @@ namespace QueueExample {
     }
 
     public int Dequeue () {
-      LinkedListNode el = this.List.RemoveFirst();
+      LinkedListNode<int> el = this.List.RemoveFirst();
       if (el == null) {
         throw new Exception("queue is empty");
       }

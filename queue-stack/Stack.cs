@@ -3,10 +3,10 @@ using System;
 
 namespace StackExample {
   public class Stack {
-    private LinkedList List;
+    private LinkedList<int> List;
 
     public Stack () {
-      this.List = new LinkedList();
+      this.List = new LinkedList<int>();
     }
 
     public void Push (int value) {
@@ -14,7 +14,7 @@ namespace StackExample {
     }
 
     public int Pop () {
-      LinkedListNode el = this.List.RemoveLast();
+      LinkedListNode<int> el = this.List.RemoveLast();
       if (el == null) {
         throw new Exception("stack is empty");
       }
