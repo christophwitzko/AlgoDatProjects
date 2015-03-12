@@ -92,6 +92,9 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> AddAfter (LinkedListNode<T> sel, T value) {
+      if (sel == null) {
+        return AddFirst(value);
+      }
       if (!sel.List.Equals(this)) {
         throw new InvalidLinkedListNode();
       }
@@ -106,6 +109,9 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> AddBefore (LinkedListNode<T> sel, T value) {
+      if (sel == null) {
+        return AddLast(value);
+      }
       if (!sel.List.Equals(this)) {
         throw new InvalidLinkedListNode();
       }
@@ -229,6 +235,11 @@ namespace LinkedListExample {
       set {
         GetByIndex(index).Value = value;
       }
+    }
+
+    public void Swap (LinkedListNode<T> a, LinkedListNode<T> b) {
+      AddAfter(Remove(a).Previous, b.Value);
+      AddAfter(Remove(b).Previous, a.Value);
     }
 
     private string traversePrint (bool reverse, string ret, LinkedListNode<T> el) {
