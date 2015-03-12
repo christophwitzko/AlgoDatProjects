@@ -13,7 +13,10 @@ namespace LinkedListExample {
       list.AddBefore(node, 111);
       list.PrintRight();
       list.RemoveAll(2);
-      list.PrintRight();
+      Console.WriteLine("DELEGATE TRAVERSE:");
+      list.Traverse(list.First, value => {
+        Console.WriteLine(value);
+      });
     }
   }
 }

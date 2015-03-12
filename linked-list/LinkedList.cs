@@ -30,6 +30,8 @@ namespace LinkedListExample {
     }
   }
 
+  public delegate void LinkedListNodeVisitor(int value);
+
   public class LinkedList {
     public LinkedListNode First;
     public LinkedListNode Last;
@@ -172,6 +174,14 @@ namespace LinkedListExample {
 
     public LinkedListNode RemoveLast () {
       return Remove(this.Last);
+    }
+
+    public void Traverse (LinkedListNode node, LinkedListNodeVisitor visitor, bool reverse = false) {
+      visitor(node.Value);
+      LinkedListNode next = reverse ? node.Previous : node.Next;
+      if (next != null) {
+        Traverse(next, visitor, reverse);
+      }
     }
 
     private string TraversePrint (bool reverse, string ret, LinkedListNode el) {
