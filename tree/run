@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mcs Program.cs BinaryTree.cs && mono Program.exe
