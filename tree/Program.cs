@@ -34,7 +34,22 @@ namespace BinaryTreeExample {
       btree.Insert(new User("Michael", "Jones"));
       btree.Insert(new User("Sarah", "Jones"));
       btree.Insert(new User("Christina", "Jones"));
+      btree.Insert(new User("A", "B"));
+      btree.Insert(new User("A", "C"));
       Console.WriteLine(btree);
+      Console.WriteLine("------ Inorder ------");
+      btree.TraverseInorder(btree.Root, (value, owner) => {
+        Console.WriteLine(value);
+      });
+      Console.WriteLine("------ Postorder ------");
+      btree.TraversePostorder(btree.Root, (value, owner) => {
+        Console.WriteLine(value);
+      });
+      Console.WriteLine("------ Preorder ------");
+      btree.TraversePreorder(btree.Root, (value, owner) => {
+        Console.WriteLine(value);
+      });
+      btree.Clear();
     }
   }
 }

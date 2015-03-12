@@ -4,16 +4,16 @@ using System.Collections.Generic;
 namespace BinaryTreeExample {
 
   public class BinaryTreeNode<T> {
-    public T Data;
+    public T Value;
     public BinaryTreeNode<T> Left;
     public BinaryTreeNode<T> Right;
 
     public BinaryTreeNode (T value) {
-      this.Data = value;
+      this.Value = value;
     }
 
     public override string ToString () {
-      return this.Data.ToString();
+      return this.Value.ToString();
     }
   }
 
@@ -35,6 +35,8 @@ namespace BinaryTreeExample {
       }
     }
 
+    public delegate void BinaryTreeNodeVisitor(T value, BinaryTreeNode<T> node);
+
     public BinaryTree () {
       this.root = null;
       this.count = 0;
@@ -45,11 +47,11 @@ namespace BinaryTreeExample {
       if (tree == null) {
         tree = node;
       } else {
-        int comp = this.comparer.Compare(node.Data, tree.Data);
+        int comp = this.comparer.Compare(node.Value, tree.Value);
         if (comp == 0) {
           throw new Exception("node already exists");
         }
-        if (comp > 0 ) {
+        if (comp < 0 ) {
           add(ref tree.Left, node);
         } else {
           add(ref tree.Right, node);
@@ -66,6 +68,66 @@ namespace BinaryTreeExample {
       }
       this.count++;
       return node;
+    }
+
+    private BinaryTreeNode<T> search (BinaryTreeNode<T> tree, T value) {
+      if (tree == null) {
+        return null;
+      }
+      int comp = this.comparer.Compare(value, tree.Value);
+      if (comp == 0) {
+        return tree;
+      }
+      if (comp < 0) {
+        return search(tree.Left, value);
+      }
+      return search(tree.Right, value);
+    }
+
+    public BinaryTreeNode<T> Search (T value) {
+      return search(this.root, value);
+    }
+
+    public BinaryTreeNode<T> Delete (T value) {
+      // TODO
+      return null;
+    }
+
+    private void traversalClear (ref BinaryTreeNode<T> tree) {
+      if (tree != null) {
+        traversalClear(ref tree.Left);
+        traversalClear(ref tree.Right);
+        tree = null;
+      }
+    }
+
+    public void Clear () {
+      traversalClear(ref this.root);
+      this.count = 0;
+    }
+
+    public void TraverseInorder (BinaryTreeNode<T> node, BinaryTreeNodeVisitor visitor) {
+      if (node != null) {
+        TraverseInorder(node.Left, visitor);
+        visitor(node.Value, node);
+        TraverseInorder(node.Right, visitor);
+      }
+    }
+
+    public void TraversePostorder (BinaryTreeNode<T> node, BinaryTreeNodeVisitor visitor) {
+      if (node != null) {
+        TraverseInorder(node.Left, visitor);
+        TraverseInorder(node.Right, visitor);
+        visitor(node.Value, node);
+      }
+    }
+
+    public void TraversePreorder (BinaryTreeNode<T> node, BinaryTreeNodeVisitor visitor) {
+      if (node != null) {
+        visitor(node.Value, node);
+        TraverseInorder(node.Left, visitor);
+        TraverseInorder(node.Right, visitor);
+      }
     }
 
     public string Print(string initial, BinaryTreeNode<T> root, string prefix = "") {
