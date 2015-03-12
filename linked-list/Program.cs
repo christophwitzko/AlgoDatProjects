@@ -16,7 +16,6 @@ namespace LinkedListExample {
       //list.Remove(found);
       list.RemoveAll(2);
       list.PrintRight();
-      list.PrintLeft();
     }
   }
 }

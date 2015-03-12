@@ -133,10 +133,7 @@ namespace LinkedListExample {
         }
         this.First = null;
         this.Last = null;
-        this.Count--;
-        return sel;
-      }
-      if (sel.Previous == null) {
+      } else if (sel.Previous == null) {
         this.First = sel.Next;
         sel.Next.Previous = null;
       } else if (sel.Next == null) {
@@ -174,11 +171,11 @@ namespace LinkedListExample {
       return TraversePrint(reverse, ret, reverse ? el.Previous : el.Next);
     }
 
-    public void PrintLeft () {
+    public void PrintRight () {
       Console.WriteLine(TraversePrint(false, "(" + this.Count + ")[\n", this.First) + "]");
     }
 
-    public void PrintRight () {
+    public void PrintLeft () {
       Console.WriteLine(TraversePrint(true, "(" + this.Count + ")[\n", this.Last) + "]");
     }
 
