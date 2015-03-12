@@ -1,9 +1,9 @@
 using LinkedListExample;
 using System;
  
-namespace LinkedListClient {
-  class Program {
-    static void Main(string[] args) {
+namespace LinkedListExample {
+  public class Program {
+    public static void Main(string[] args) {
       LinkedList list = new LinkedList();
       for (int i = 0; i < 5; i++) {
         list.AddFirst(i);
