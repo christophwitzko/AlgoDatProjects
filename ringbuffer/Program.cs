@@ -4,7 +4,7 @@ namespace RingBufferExample {
   public class Program {
     public static void Main(string[] args) {
       RingBuffer<int> rbuffer = new RingBuffer<int>(20);
-      for (int i = 100; i < 106; i++) {
+      for (int i = 100; i < 200; i++) {
         rbuffer.Put(i);
       }
       Console.WriteLine(rbuffer);
@@ -12,6 +12,7 @@ namespace RingBufferExample {
       for (ulong i = 0; i < size; i++) {
         Console.WriteLine(rbuffer.Get());
       }
+      Console.WriteLine(rbuffer);
     }
   }
 }

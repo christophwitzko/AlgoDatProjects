@@ -28,32 +28,29 @@ namespace RingBufferExample {
       this.buffer = new T[cap];
     }
 
+    private ulong increase (ulong value) {
+      return (value + 1) % this.capacity;
+    }
+
     public void Put (T item) {
-      this.buffer[this.tail++] = item;
-      if (this.tail == this.capacity) {
-        this.tail = 0;
-      }
+      this.buffer[this.tail] = item;
+      this.tail = increase(this.tail);
       this.size++;
-      if (this.size >= this.capacity) {
-       this.size = this.capacity;
+      if (this.size > this.capacity) {
+        this.size = this.capacity;
       }
     }
 
     public void Skip () {
-      this.head++;
-      if (this.head >= this.capacity) {
-        this.head = 0;
-      }
+      this.head = increase(this.head);
     }
 
     public T Get() {
       if (this.size == 0) {
         throw new IndexOutOfRangeException();
       }
-      T item = this.buffer[this.head++];
-      if (this.head == this.capacity) {
-        this.head = 0;
-      }
+      T item = this.buffer[this.head];
+      this.head = increase(this.head);
       this.size--;
       return item;
     }
