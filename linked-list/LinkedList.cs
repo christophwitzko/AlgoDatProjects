@@ -184,6 +184,29 @@ namespace LinkedListExample {
       }
     }
 
+    public LinkedListNode GetByIndex (ulong index) {
+      if (index < 0 || index >= this.Count) {
+        throw new IndexOutOfRangeException();
+      }
+      LinkedListNode current = this.First;
+      for (ulong i = 0; i < this.Count; i++) {
+        if (index == i) {
+          return current;
+        }
+        current = current.Next;
+      }
+      return null;
+    }
+
+    public int this[ulong index] {
+      get {
+        return GetByIndex(index).Value;
+      }
+      set {
+        GetByIndex(index).Value = value;
+      }
+    }
+
     private string TraversePrint (bool reverse, string ret, LinkedListNode el) {
       if (el == null) {
         return ret;
