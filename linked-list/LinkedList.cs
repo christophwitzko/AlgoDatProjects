@@ -3,13 +3,18 @@ using System.Collections.Generic;
 
 namespace LinkedListExample {
   public class LinkedListNode<T> {
-    public LinkedList<T> List;
+    private LinkedList<T> list;
     public LinkedListNode<T> Previous;
     public LinkedListNode<T> Next;
     public T Value;
 
-    public LinkedListNode (LinkedList<T> list, LinkedListNode<T> previous, LinkedListNode<T> next, T value) {
-      this.List = list;
+    public LinkedList<T> List {
+      get {
+        return this.list;
+      }
+    }
+    public LinkedListNode (LinkedList<T> parrent, LinkedListNode<T> previous, LinkedListNode<T> next, T value) {
+      this.list = parrent;
       this.Previous = previous;
       this.Next = next;
       this.Value = value;
@@ -32,39 +37,57 @@ namespace LinkedListExample {
   }
 
   public class LinkedList<T> {
-    public LinkedListNode<T> First;
-    public LinkedListNode<T> Last;
-    public ulong Count;
+    private LinkedListNode<T> first;
+    private LinkedListNode<T> last;
+    private ulong count;
 
-    public delegate void LinkedListNodeVisitor(T value);
+    public LinkedListNode<T> First {
+      get {
+        return this.first;
+      }
+    }
+
+    public LinkedListNode<T> Last {
+      get {
+        return this.last;
+      }
+    }
+
+    public ulong Count {
+      get {
+        return this.count;
+      }
+    }
+
+    public delegate void LinkedListNodeVisitor(T value, LinkedListNode<T> node);
 
     public LinkedList () {
-      this.First = null;
-      this.Last = null;
-      this.Count = 0;
+      this.first = null;
+      this.last = null;
+      this.count = 0;
     }
 
     public LinkedListNode<T> AddFirst (T value) {
-      LinkedListNode<T> el = new LinkedListNode<T>(this, null, this.First, value);
-      if (this.Count == 0) {
-        this.Last = el;
+      LinkedListNode<T> el = new LinkedListNode<T>(this, null, this.first, value);
+      if (this.count == 0) {
+        this.last = el;
       } else {
-        this.First.Previous = el;
+        this.first.Previous = el;
       }
-      this.First = el;
-      this.Count++;
+      this.first = el;
+      this.count++;
       return el;
     }
 
     public LinkedListNode<T> AddLast (T value) {
-      LinkedListNode<T> el = new LinkedListNode<T>(this, this.Last, null, value);
-      if (this.Count == 0) {
-        this.First = el;
+      LinkedListNode<T> el = new LinkedListNode<T>(this, this.last, null, value);
+      if (this.count == 0) {
+        this.first = el;
       } else {
-        this.Last.Next = el;
+        this.last.Next = el;
       }
-      this.Last = el;
-      this.Count++;
+      this.last = el;
+      this.count++;
       return el;
     }
 
@@ -78,7 +101,7 @@ namespace LinkedListExample {
       LinkedListNode<T> el = new LinkedListNode<T>(this, sel, sel.Next, value);
       sel.Next.Previous = el;
       sel.Next = el;
-      this.Count++;
+      this.count++;
       return el;
     }
 
@@ -92,7 +115,7 @@ namespace LinkedListExample {
       LinkedListNode<T> el = new LinkedListNode<T>(this, sel.Previous, sel, value);
       sel.Previous.Next = el;
       sel.Previous = el;
-      this.Count++;
+      this.count++;
       return el;
     }
 
@@ -106,10 +129,10 @@ namespace LinkedListExample {
     }
 
     public void Clear () {
-      this.Last = null;
-      TraverseClear(this.First);
-      this.First = null;
-      this.Count = 0;
+      this.last = null;
+      TraverseClear(this.first);
+      this.first = null;
+      this.count = 0;
     }
 
     private LinkedListNode<T> TraverseFind (bool reverse, T value, LinkedListNode<T> el) {
@@ -123,11 +146,11 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> Find (T value) {
-      return TraverseFind(false, value, this.First);
+      return TraverseFind(false, value, this.first);
     }
 
     public LinkedListNode<T> FindLast (T value) {
-      return TraverseFind(true, value, this.Last);
+      return TraverseFind(true, value, this.last);
     }
 
     public bool Contains(T value) {
@@ -135,29 +158,29 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> Remove (LinkedListNode<T> sel) {
-      if (this.Count < 1) {
+      if (this.count < 1) {
         return null;
       }
       if (!sel.List.Equals(this)) {
         throw new InvalidLinkedListNode();
       }
-      if (this.Count == 1) {
-        if (!sel.Equals(this.First)) {
+      if (this.count == 1) {
+        if (!sel.Equals(this.first)) {
           throw new InvalidLinkedListNode();
         }
-        this.First = null;
-        this.Last = null;
+        this.first = null;
+        this.last = null;
       } else if (sel.Previous == null) {
-        this.First = sel.Next;
+        this.first = sel.Next;
         sel.Next.Previous = null;
       } else if (sel.Next == null) {
-        this.Last = sel.Previous;
+        this.last = sel.Previous;
         sel.Previous.Next = null;
       } else {
         sel.Previous.Next = sel.Next;
         sel.Next.Previous = sel.Previous;
       }
-      this.Count--;
+      this.count--;
       return sel;
     }
 
@@ -170,15 +193,15 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> RemoveFirst () {
-      return Remove(this.First);
+      return Remove(this.first);
     }
 
     public LinkedListNode<T> RemoveLast () {
-      return Remove(this.Last);
+      return Remove(this.last);
     }
 
     public void Traverse (LinkedListNode<T> node, LinkedListNodeVisitor visitor, bool reverse = false) {
-      visitor(node.Value);
+      visitor(node.Value, node);
       LinkedListNode<T> next = reverse ? node.Previous : node.Next;
       if (next != null) {
         Traverse(next, visitor, reverse);
@@ -186,11 +209,11 @@ namespace LinkedListExample {
     }
 
     public LinkedListNode<T> GetByIndex (ulong index) {
-      if (index < 0 || index >= this.Count) {
+      if (index < 0 || index >= this.count) {
         throw new IndexOutOfRangeException();
       }
-      LinkedListNode<T> current = this.First;
-      for (ulong i = 0; i < this.Count; i++) {
+      LinkedListNode<T> current = this.first;
+      for (ulong i = 0; i < this.count; i++) {
         if (index == i) {
           return current;
         }
@@ -217,15 +240,15 @@ namespace LinkedListExample {
     }
 
     public void PrintRight () {
-      Console.WriteLine(TraversePrint(false, "(" + this.Count + ")[\n", this.First) + "]");
+      Console.WriteLine(TraversePrint(false, "(" + this.count + ")[\n", this.first) + "]");
     }
 
     public void PrintLeft () {
-      Console.WriteLine(TraversePrint(true, "(" + this.Count + ")[\n", this.Last) + "]");
+      Console.WriteLine(TraversePrint(true, "(" + this.count + ")[\n", this.last) + "]");
     }
 
     public override string ToString () {
-      return TraversePrint(false, "(" + this.Count + ")[\n", this.First) + "]";
+      return TraversePrint(false, "(" + this.count + ")[\n", this.first) + "]";
     }
   }
 }

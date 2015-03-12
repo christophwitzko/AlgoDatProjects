@@ -13,7 +13,7 @@ namespace LinkedListExample {
       list.PrintRight();
       list.RemoveAll(2);
       Console.WriteLine("DELEGATE TRAVERSE:");
-      list.Traverse(list.First, value => {
+      list.Traverse(list.GetByIndex(list.Count / 2), (value, owner) => {
         Console.WriteLine(value);
       });
     }
