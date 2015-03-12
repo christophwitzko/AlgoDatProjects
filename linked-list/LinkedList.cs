@@ -119,38 +119,38 @@ namespace LinkedListExample {
       return el;
     }
 
-    private void TraverseClear (LinkedListNode<T> el) {
+    private void traverseClear (LinkedListNode<T> el) {
       if (el == null) {
         return;
       }
       el.Previous = null;
-      TraverseClear(el.Next);
+      traverseClear(el.Next);
       el.Next = null;
     }
 
     public void Clear () {
       this.last = null;
-      TraverseClear(this.first);
+      traverseClear(this.first);
       this.first = null;
       this.count = 0;
     }
 
-    private LinkedListNode<T> TraverseFind (bool reverse, T value, LinkedListNode<T> el) {
+    private LinkedListNode<T> traverseFind (bool reverse, T value, LinkedListNode<T> el) {
       if (el == null) {
         return null;
       }
       if (EqualityComparer<T>.Default.Equals(el.Value, value)) {
         return el;
       }
-      return TraverseFind(reverse, value, reverse ? el.Previous : el.Next);
+      return traverseFind(reverse, value, reverse ? el.Previous : el.Next);
     }
 
     public LinkedListNode<T> Find (T value) {
-      return TraverseFind(false, value, this.first);
+      return traverseFind(false, value, this.first);
     }
 
     public LinkedListNode<T> FindLast (T value) {
-      return TraverseFind(true, value, this.last);
+      return traverseFind(true, value, this.last);
     }
 
     public bool Contains(T value) {
@@ -231,24 +231,24 @@ namespace LinkedListExample {
       }
     }
 
-    private string TraversePrint (bool reverse, string ret, LinkedListNode<T> el) {
+    private string traversePrint (bool reverse, string ret, LinkedListNode<T> el) {
       if (el == null) {
         return ret;
       }
       ret += "\t" + el.Value + "\n";
-      return TraversePrint(reverse, ret, reverse ? el.Previous : el.Next);
+      return traversePrint(reverse, ret, reverse ? el.Previous : el.Next);
     }
 
     public void PrintRight () {
-      Console.WriteLine(TraversePrint(false, "(" + this.count + ")[\n", this.first) + "]");
+      Console.WriteLine(traversePrint(false, "(" + this.count + ")[\n", this.first) + "]");
     }
 
     public void PrintLeft () {
-      Console.WriteLine(TraversePrint(true, "(" + this.count + ")[\n", this.last) + "]");
+      Console.WriteLine(traversePrint(true, "(" + this.count + ")[\n", this.last) + "]");
     }
 
     public override string ToString () {
-      return TraversePrint(false, "(" + this.count + ")[\n", this.first) + "]";
+      return traversePrint(false, "(" + this.count + ")[\n", this.first) + "]";
     }
   }
 }
