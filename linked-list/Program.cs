@@ -11,6 +11,7 @@ namespace LinkedListExample {
       list.AddAfter(nodea, 111);
       list.PrintRight();
       list.Swap(nodea, list.Last);
+      Console.WriteLine(list.Compare(list.First, list.Last));
       list.PrintRight();
       /*Console.WriteLine("DELEGATE TRAVERSE:");
       list.Traverse(list.GetByIndex(list.Count / 2), (value, owner) => {

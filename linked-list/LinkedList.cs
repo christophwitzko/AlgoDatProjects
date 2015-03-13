@@ -40,6 +40,7 @@ namespace LinkedListExample {
     private LinkedListNode<T> first;
     private LinkedListNode<T> last;
     private ulong count;
+    private readonly IComparer<T> comparer;
 
     public LinkedListNode<T> First {
       get {
@@ -65,6 +66,7 @@ namespace LinkedListExample {
       this.first = null;
       this.last = null;
       this.count = 0;
+      this.comparer = Comparer<T>.Default;
     }
 
     public LinkedListNode<T> AddFirst (T value) {
@@ -240,6 +242,10 @@ namespace LinkedListExample {
     public void Swap (LinkedListNode<T> a, LinkedListNode<T> b) {
       AddAfter(Remove(a).Previous, b.Value);
       AddAfter(Remove(b).Previous, a.Value);
+    }
+
+    public int Compare (LinkedListNode<T> a, LinkedListNode<T> b) {
+      return this.comparer.Compare(a.Value, b.Value);
     }
 
     private string traversePrint (bool reverse, string ret, LinkedListNode<T> el) {
