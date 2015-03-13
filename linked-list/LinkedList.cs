@@ -244,8 +244,16 @@ namespace LinkedListExample {
       AddAfter(Remove(b).Previous, a.Value);
     }
 
+    public void Swap (ulong a, ulong b) {
+      Swap(GetByIndex(a), GetByIndex(b));
+    }
+
     public int Compare (LinkedListNode<T> a, LinkedListNode<T> b) {
       return this.comparer.Compare(a.Value, b.Value);
+    }
+
+    public int Compare (ulong a, ulong b) {
+      return Compare(GetByIndex(a), GetByIndex(b));
     }
 
     private string traversePrint (bool reverse, string ret, LinkedListNode<T> el) {
