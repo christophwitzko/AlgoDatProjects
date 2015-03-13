@@ -15,6 +15,8 @@ namespace SortExample {
       Dump("BubbleSort:", bsort.Sort((int[])values.Clone()));
       SelectionSort<int> ssort = new SelectionSort<int>();
       Dump("SelectionSort:", ssort.Sort((int[])values.Clone()));
+      InsertionSort<int> isort = new InsertionSort<int>();
+      Dump("InsertionSort:", isort.Sort((int[])values.Clone()));
     }
   }
 }
