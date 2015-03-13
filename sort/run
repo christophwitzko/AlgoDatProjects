@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mcs Program.cs BubbleSort.cs && mono Program.exe
