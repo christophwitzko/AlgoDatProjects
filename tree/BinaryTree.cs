@@ -106,6 +106,18 @@ namespace BinaryTreeExample {
       this.count = 0;
     }
 
+    public ulong Height (BinaryTreeNode<T> node) {
+      if (node == null) {
+        return 0;
+      }
+      ulong lheight = Height(node.Left);
+      ulong rheight = Height(node.Right);
+      if (lheight > rheight) {
+        return lheight + 1;
+      }
+      return rheight + 1;
+    }
+
     public void TraverseInorder (BinaryTreeNode<T> node, BinaryTreeNodeVisitor visitor) {
       if (node != null) {
         TraverseInorder(node.Left, visitor);
@@ -127,6 +139,23 @@ namespace BinaryTreeExample {
         visitor(node.Value, node);
         TraverseInorder(node.Left, visitor);
         TraverseInorder(node.Right, visitor);
+      }
+    }
+
+    public void TraverseLevel (BinaryTreeNode<T> node, ulong level, BinaryTreeNodeVisitor visitor) {
+      if (node != null) {
+        if (level == 1) {
+          visitor(node.Value, node);
+        } else if (level > 1) {
+          TraverseLevel(node.Left, level - 1, visitor);
+          TraverseLevel(node.Right, level - 1, visitor);
+        }
+      }
+    }
+
+    public void TraverseLevelOrder (BinaryTreeNode<T> node, BinaryTreeNodeVisitor visitor) {
+      for (ulong i = 1; i <= Height(node); i++) {
+        TraverseLevel(node, i, visitor);
       }
     }
 

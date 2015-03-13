@@ -49,6 +49,10 @@ namespace BinaryTreeExample {
       btree.TraversePreorder(btree.Root, (value, owner) => {
         Console.WriteLine(value);
       });
+      Console.WriteLine("------ LevelOrder ------");
+      btree.TraverseLevelOrder(btree.Root, (value, owner) => {
+        Console.WriteLine(value);
+      });
       btree.Clear();
     }
   }
