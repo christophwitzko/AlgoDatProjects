@@ -13,6 +13,8 @@ namespace SortExample {
       int[] values = {3, 6, 9, 1, 4, 7, 10, 8, 2, 5};
       BubbleSort<int> bsort = new BubbleSort<int>();
       Dump("BubbleSort:", bsort.Sort((int[])values.Clone()));
+      SelectionSort<int> ssort = new SelectionSort<int>();
+      Dump("SelectionSort:", ssort.Sort((int[])values.Clone()));
     }
   }
 }
