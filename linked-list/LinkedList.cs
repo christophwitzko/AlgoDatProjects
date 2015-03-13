@@ -13,10 +13,14 @@ namespace LinkedListExample {
         return this.list;
       }
     }
-    public LinkedListNode (LinkedList<T> parrent, LinkedListNode<T> previous, LinkedListNode<T> next, T value) {
+    public LinkedListNode (LinkedList<T> parrent, LinkedListNode<T> previous, LinkedListNode<T> next) {
       this.list = parrent;
       this.Previous = previous;
       this.Next = next;
+    }
+
+    public LinkedListNode (LinkedList<T> parrent, LinkedListNode<T> previous, LinkedListNode<T> next, T value)
+      : this(parrent, previous, next) {
       this.Value = value;
     }
 
@@ -67,6 +71,24 @@ namespace LinkedListExample {
       this.last = null;
       this.count = 0;
       this.comparer = Comparer<T>.Default;
+    }
+
+    public LinkedList (ulong length): this() {
+      for (ulong i = 0; i < length; i++) {
+        addEmptyFirst();
+      }
+    }
+
+    private LinkedListNode<T> addEmptyFirst () {
+      LinkedListNode<T> el = new LinkedListNode<T>(this, null, this.first);
+      if (this.count == 0) {
+        this.last = el;
+      } else {
+        this.first.Previous = el;
+      }
+      this.first = el;
+      this.count++;
+      return el;
     }
 
     public LinkedListNode<T> AddFirst (T value) {
