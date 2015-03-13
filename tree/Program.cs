@@ -37,11 +37,18 @@ namespace BinaryTreeExample {
       btree.Insert(new User("A", "B"));
       btree.Insert(new User("A", "C"));
       Console.WriteLine(btree);
+      /*BinaryTreeNode<User> parrent = null;
+      BinaryTreeNode<User> found = btree.Search(new User("Eric", "Smith"), ref parrent);
+      Console.WriteLine(parrent);
+      Console.WriteLine(found);*/
+      btree.Delete(new User("Michael", "Jones"));
+      Console.WriteLine(btree);
+      Console.WriteLine(btree.Height(btree.Root));
       Console.WriteLine("------ Inorder ------");
       btree.TraverseInorder(btree.Root, (value, owner) => {
         Console.WriteLine(value);
       });
-      Console.WriteLine("------ Postorder ------");
+      /*Console.WriteLine("------ Postorder ------");
       btree.TraversePostorder(btree.Root, (value, owner) => {
         Console.WriteLine(value);
       });
@@ -52,7 +59,7 @@ namespace BinaryTreeExample {
       Console.WriteLine("------ LevelOrder ------");
       btree.TraverseLevelOrder(btree.Root, (value, owner) => {
         Console.WriteLine(value);
-      });
+      });*/
       btree.Clear();
     }
   }
