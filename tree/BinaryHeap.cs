@@ -5,15 +5,37 @@ namespace BinaryTreeExample {
 
   public class BinaryHeap<T> {
     private LinkedList<T> data;
-
-    public BinaryHeap () {
-      this.data = new LinkedList<T>();
-    }
+    private bool minHeap;
 
     public ulong Count {
       get {
         return this.data.Count;
       }
+    }
+
+    public bool IsMinHeap {
+      get {
+        return this.minHeap;
+      }
+    }
+
+    public BinaryHeap (bool min) {
+      this.data = new LinkedList<T>();
+      this.minHeap = min;
+    }
+
+    public BinaryHeap () : this(false) {
+      this.data = new LinkedList<T>();
+    }
+
+    private bool compare (ulong a, ulong b) {
+      int comp = this.data.Compare(a, b);
+      if (comp > 0) {
+        return !this.minHeap;
+      } else if (comp < 0) {
+        return this.minHeap;
+      }
+      return false;
     }
 
     public void Clear () {
@@ -39,7 +61,7 @@ namespace BinaryTreeExample {
     private void heapifyUp (ulong childIdx) {
       if (childIdx > 0) {
         ulong parentIdx = (childIdx - 1) / 2;
-        if (this.data.Compare(childIdx, parentIdx) < 0){
+        if (compare(childIdx, parentIdx)){
           this.data.Swap(parentIdx, childIdx);
           heapifyUp(parentIdx);
         }
@@ -50,10 +72,10 @@ namespace BinaryTreeExample {
       ulong leftChildIdx = 2 * parentIdx + 1;
       ulong rightChildIdx = leftChildIdx + 1;
       ulong smallestChildIdx = parentIdx;
-      if (leftChildIdx < this.Count && this.data.Compare(leftChildIdx, smallestChildIdx) < 0) {
+      if (leftChildIdx < this.Count && compare(leftChildIdx, smallestChildIdx)) {
         smallestChildIdx = leftChildIdx;
       }
-      if (rightChildIdx < this.Count && this.data.Compare(rightChildIdx, smallestChildIdx) < 0) {
+      if (rightChildIdx < this.Count && compare(rightChildIdx, smallestChildIdx)) {
         smallestChildIdx = rightChildIdx;
       }
       if (smallestChildIdx != parentIdx) {
