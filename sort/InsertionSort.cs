@@ -8,6 +8,7 @@ namespace SortExample {
     }
 
     public LinkedList<T> Sort (LinkedList<T> arr) {
+      arr = arr.ShallowCopy();
       for (ulong i = 0; i < arr.Count - 1; i++) {
         ulong j = i + 1;
         while (j > 0) {

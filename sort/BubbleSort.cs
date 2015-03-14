@@ -8,6 +8,7 @@ namespace SortExample {
     }
 
     public LinkedList<T> Sort (LinkedList<T> arr) {
+      arr = arr.ShallowCopy();
       bool swapped = true;
       while (swapped) {
         swapped = false;

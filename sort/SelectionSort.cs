@@ -18,6 +18,7 @@ namespace SortExample {
     }
 
     public LinkedList<T> Sort (LinkedList<T> arr) {
+      arr = arr.ShallowCopy();
       ulong length = arr.Count;
       ulong left = 0;
       while (left < length) {
