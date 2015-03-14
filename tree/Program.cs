@@ -61,6 +61,11 @@ namespace BinaryTreeExample {
         Console.WriteLine(value);
       });*/
       btree.Clear();
+      BinaryHeap<int> bheap = new BinaryHeap<int>();
+      for (int i = 0; i < 10; i++) {
+        bheap.Insert(i);
+      }
+      Console.WriteLine(bheap);
     }
   }
 }

@@ -237,19 +237,19 @@ namespace BinaryTreeExample {
       }
     }
 
-    public string Print(string initial, BinaryTreeNode<T> root, string prefix = "") {
+    private string print(string initial, BinaryTreeNode<T> root, string prefix = "") {
       if (root == null) {
         initial += prefix + "+- <null>\n";
       } else {
         initial += prefix + "+- " + root.ToString() + "\n";
-        initial = Print(initial, root.Left, prefix + "|  ");
-        initial = Print(initial, root.Right, prefix + "|  ");
+        initial = print(initial, root.Left, prefix + "|  ");
+        initial = print(initial, root.Right, prefix + "|  ");
       }
       return initial;
     }
 
     public override string ToString () {
-      return Print("<BinaryTree(" + this.count + ")\n", this.root) + ">";
+      return print("<BinaryTree(" + this.count + ")\n", this.root) + ">";
     }
   }
 }
