@@ -71,16 +71,16 @@ namespace BinaryTreeExample {
     private void heapifyDown (ulong parentIdx) {
       ulong leftChildIdx = 2 * parentIdx + 1;
       ulong rightChildIdx = leftChildIdx + 1;
-      ulong smallestChildIdx = parentIdx;
-      if (leftChildIdx < this.Count && compare(leftChildIdx, smallestChildIdx)) {
-        smallestChildIdx = leftChildIdx;
+      ulong largestChildIdx = parentIdx;
+      if (leftChildIdx < this.Count && compare(leftChildIdx, largestChildIdx)) {
+        largestChildIdx = leftChildIdx;
       }
-      if (rightChildIdx < this.Count && compare(rightChildIdx, smallestChildIdx)) {
-        smallestChildIdx = rightChildIdx;
+      if (rightChildIdx < this.Count && compare(rightChildIdx, largestChildIdx)) {
+        largestChildIdx = rightChildIdx;
       }
-      if (smallestChildIdx != parentIdx) {
-        this.data.Swap(parentIdx, smallestChildIdx);
-        heapifyDown(smallestChildIdx);
+      if (largestChildIdx != parentIdx) {
+        this.data.Swap(parentIdx, largestChildIdx);
+        heapifyDown(largestChildIdx);
       }
     }
 
