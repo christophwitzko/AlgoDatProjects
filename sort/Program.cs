@@ -7,8 +7,8 @@ namespace SortExample {
       LinkedList<int> ilist = new LinkedList<int>();
       ilist.AddLast(3);
       ilist.AddLast(9);
-      ilist.AddLast(6);
       ilist.AddLast(1);
+      ilist.AddLast(6);
       ilist.AddLast(4);
       ilist.AddLast(7);
       ilist.AddLast(10);
@@ -33,6 +33,10 @@ namespace SortExample {
       Console.WriteLine("MergeSort:");
       MergeSort<int> msort = new MergeSort<int>();
       Console.WriteLine(msort.Sort(genArray()));
+      Console.WriteLine("--------------");
+      Console.WriteLine("QuickSort:");
+      QuickSort<int> qsort = new QuickSort<int>();
+      Console.WriteLine(qsort.Sort(genArray()));
       Console.WriteLine("--------------");
     }
   }
