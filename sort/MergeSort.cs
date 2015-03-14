@@ -45,7 +45,7 @@ namespace SortExample {
       LinkedList<T> left = new LinkedList<T>(middle);
       LinkedList<T> right = new LinkedList<T>(arr.Count - middle);
       for (ulong i = 0; i < middle; i++) {
-              left[i] = arr[i];
+        left[i] = arr[i];
       }
       for (ulong i = middle; i < arr.Count; i++) {
         right[i - middle] = arr[i];
