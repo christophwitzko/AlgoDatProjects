@@ -67,17 +67,18 @@ namespace SortExample {
       res.AddLast(new DataPoint("InsertionSort", benchmark(sarr, comp, new InsertionSort<int>().Sort), max));
       res.AddLast(new DataPoint("MergeSort", benchmark(sarr, comp, new MergeSort<int>().Sort), max));
       res.AddLast(new DataPoint("QuickSort", benchmark(sarr, comp, qsort), max));
+      res.AddLast(new DataPoint("HeapSort", benchmark(sarr, comp, new HeapSort<int>().Sort), max));
       return res;
     }
 
     public static void Main(string[] args) {
       LinkedList<LinkedList<DataPoint>> rows = new LinkedList<LinkedList<DataPoint>>();
-      for (ulong i = 100; i < 1000; i+= 100) {
+      for (ulong i = 100; i <= 1000; i+= 100) {
         LinkedList<DataPoint> res = benchmarkSort(i);
         rows.AddLast(res);
       }
       Console.WriteLine("------------------------------------------------");
-      Console.WriteLine("Size\t| BS\tSS\tIS\tMS\tQS");
+      Console.WriteLine("Size\t| BS\tSS\tIS\tMS\tQS\tHS");
       rows.Traverse(rows.First, (dps, odps) => {
         Console.Write(dps[0].Size + "\t| ");
         dps.Traverse(dps.First, (dp, odp) => {
