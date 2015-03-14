@@ -74,7 +74,7 @@ namespace SortExample {
 
     public static void Main(string[] args) {
       LinkedList<LinkedList<DataPoint>> rows = new LinkedList<LinkedList<DataPoint>>();
-      for (ulong i = 100; i <= 1000; i+= 100) {
+      for (ulong i = 100; i <= 3000; i+= 100) {
         LinkedList<DataPoint> res = benchmarkSort(i);
         rows.AddLast(res);
       }
