@@ -66,6 +66,9 @@ namespace BinaryTreeExample {
         bheap.Insert(i);
       }
       Console.WriteLine(bheap);
+      while (bheap.Count > 0) {
+        Console.WriteLine(bheap.RemoveTop());
+      }
     }
   }
 }
