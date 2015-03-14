@@ -79,6 +79,14 @@ namespace LinkedListExample {
       }
     }
 
+    public LinkedList<T> ShallowCopy () {
+      LinkedList<T> other = new LinkedList<T>(this.count);
+      for (ulong i = 0; i < this.count; i++) {
+        other[i] = this[i];
+      }
+      return other;
+    }
+
     private LinkedListNode<T> addEmptyFirst () {
       LinkedListNode<T> el = new LinkedListNode<T>(this, null, this.first);
       if (this.count == 0) {
