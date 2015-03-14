@@ -1,22 +1,39 @@
+using LinkedListExample;
 using System;
 
 namespace SortExample {
   public class Program {
-    public static void Dump (string name, int[] sorted) {
-      Console.WriteLine(name);
-      for (int i = 0; i < sorted.Length; i++) {
-        Console.Write(sorted[i] + " ");
-      }
-      Console.WriteLine("\n---------------------");
+    public static LinkedList<int> genArray () {
+      LinkedList<int> ilist = new LinkedList<int>();
+      ilist.AddLast(3);
+      ilist.AddLast(9);
+      ilist.AddLast(6);
+      ilist.AddLast(1);
+      ilist.AddLast(4);
+      ilist.AddLast(7);
+      ilist.AddLast(10);
+      ilist.AddLast(8);
+      ilist.AddLast(2);
+      ilist.AddLast(5);
+      return ilist;
     }
     public static void Main(string[] args) {
-      int[] values = {3, 6, 9, 1, 4, 7, 10, 8, 2, 5};
+      Console.WriteLine("BubbleSort:");
       BubbleSort<int> bsort = new BubbleSort<int>();
-      Dump("BubbleSort:", bsort.Sort((int[])values.Clone()));
+      Console.WriteLine(bsort.Sort(genArray()));
+      Console.WriteLine("--------------");
+      Console.WriteLine("SelectionSort:");
       SelectionSort<int> ssort = new SelectionSort<int>();
-      Dump("SelectionSort:", ssort.Sort((int[])values.Clone()));
+      Console.WriteLine(ssort.Sort(genArray()));
+      Console.WriteLine("--------------");
+      Console.WriteLine("InsertionSort:");
       InsertionSort<int> isort = new InsertionSort<int>();
-      Dump("InsertionSort:", isort.Sort((int[])values.Clone()));
+      Console.WriteLine(isort.Sort(genArray()));
+      Console.WriteLine("--------------");
+      Console.WriteLine("MergeSort:");
+      MergeSort<int> msort = new MergeSort<int>();
+      Console.WriteLine(msort.Sort(genArray()));
+      Console.WriteLine("--------------");
     }
   }
 }
