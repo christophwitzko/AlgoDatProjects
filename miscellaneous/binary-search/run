@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mcs Program.cs BinarySearch.cs ../../linked-list/LinkedList.cs && mono Program.exe
