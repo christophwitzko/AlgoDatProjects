@@ -30,9 +30,7 @@ namespace BinaryTreeExample {
     }
 
     public T RemoveTop () {
-      if (this.Count > 1) {
-        this.data.Swap(0, this.Count - 1);
-      }
+      this.data.Swap(0, this.Count - 1);
       T value = this.data.RemoveLast().Value;
       heapifyDown(0);
       return value;

@@ -270,8 +270,10 @@ namespace LinkedListExample {
     }
 
     public void Swap (LinkedListNode<T> a, LinkedListNode<T> b) {
-      AddAfter(Remove(a).Previous, b.Value);
-      AddAfter(Remove(b).Previous, a.Value);
+      if (this.count > 1) {
+        AddAfter(Remove(a).Previous, b.Value);
+        AddAfter(Remove(b).Previous, a.Value);
+      }
     }
 
     public void Swap (ulong a, ulong b) {
