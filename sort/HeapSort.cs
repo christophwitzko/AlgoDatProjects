@@ -9,7 +9,7 @@ namespace SortExample {
     }
 
     public LinkedList<T> Sort (LinkedList<T> arr) {
-      BinaryHeap<T> heap = new BinaryHeap<T>();
+      BinaryHeap<T> heap = new BinaryHeap<T>(true);
       for (ulong i = 0; i < arr.Count; i++) {
         heap.Insert(arr[i]);
       }
