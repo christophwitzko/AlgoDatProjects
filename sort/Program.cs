@@ -68,6 +68,7 @@ namespace SortExample {
       res.AddLast(new DataPoint("MergeSort", benchmark(sarr, comp, new MergeSort<int>().Sort), max));
       res.AddLast(new DataPoint("QuickSort", benchmark(sarr, comp, qsort), max));
       res.AddLast(new DataPoint("HeapSort", benchmark(sarr, comp, new HeapSort<int>().Sort), max));
+      res.AddLast(new DataPoint("RealHeapSort", benchmark(sarr, comp, new RealHeapSort<int>().Sort), max));
       return res;
     }
 
@@ -77,16 +78,17 @@ namespace SortExample {
         LinkedList<DataPoint> res = benchmarkSort(i);
         rows.AddLast(res);
       }
-      Console.WriteLine("------------------------------------------------");
-      Console.WriteLine("Size\t| BS\tSS\tIS\tMS\tQS\tHS");
+      string line = new String('-', 65);
+      Console.WriteLine(line);
+      Console.WriteLine("Size\t| BS\t| SS\t| IS\t| MS\t| QS\t| HS\t| RH\t| ");
       rows.Traverse(rows.First, (dps, odps) => {
         Console.Write(dps[0].Size + "\t| ");
         dps.Traverse(dps.First, (dp, odp) => {
-          Console.Write(dp.Time + "\t");
+          Console.Write(dp.Time + "\t| ");
         });
         Console.WriteLine();
       });
-      Console.WriteLine("------------------------------------------------");
+      Console.WriteLine(line);
     }
   }
 }
