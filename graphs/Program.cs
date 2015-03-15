@@ -46,9 +46,11 @@ namespace GraphExample {
         { 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
         { 0, 0, 0, 0, 1, 0, 0, 0, 1, 0}
       };
+      Console.WriteLine("Depth First Search:");
       bool[] visitd = new bool[10];
       DFSVisit(0, visitd, adjmatrix);
       Console.WriteLine(new String('-', 20));
+      Console.WriteLine("Breadth First Search:");
       bool[] visitb = new bool[10];
       BFSVisit(0, visitb, adjmatrix);
     }
