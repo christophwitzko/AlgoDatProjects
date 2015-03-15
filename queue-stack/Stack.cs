@@ -2,27 +2,32 @@ using LinkedListExample;
 using System;
 
 namespace StackExample {
-  public class Stack {
-    private LinkedList<int> List;
+  public class Stack<T> {
+    private LinkedList<T> List;
 
-    public Stack () {
-      this.List = new LinkedList<int>();
+    public ulong Count {
+      get {
+        return this.List.Count;
+      }
     }
 
-    public void Push (int value) {
+    public Stack () {
+      this.List = new LinkedList<T>();
+    }
+
+    public void Push (T value) {
       this.List.AddLast(value);
     }
 
-    public int Pop () {
-      LinkedListNode<int> el = this.List.RemoveLast();
-      if (el == null) {
+    public T Pop () {
+      if (this.Count == 0) {
         throw new Exception("stack is empty");
       }
-      return el.Value;
+      return this.List.RemoveLast().Value;
     }
 
-    public int Peek () {
-      if (this.List.Last == null) {
+    public T Peek () {
+      if (this.Count == 0) {
         throw new Exception("queue is empty");
       }
       return this.List.Last.Value;

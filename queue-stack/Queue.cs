@@ -2,27 +2,32 @@ using LinkedListExample;
 using System;
 
 namespace QueueExample {
-  public class Queue {
-    private LinkedList<int> List;
+  public class Queue<T> {
+    private LinkedList<T> List;
 
-    public Queue () {
-      this.List = new LinkedList<int>();
+    public ulong Count {
+      get {
+        return this.List.Count;
+      }
     }
 
-    public void Enqueue (int value) {
+    public Queue () {
+      this.List = new LinkedList<T>();
+    }
+
+    public void Enqueue (T value) {
       this.List.AddLast(value);
     }
 
-    public int Dequeue () {
-      LinkedListNode<int> el = this.List.RemoveFirst();
-      if (el == null) {
+    public T Dequeue () {
+      if (this.Count == 0) {
         throw new Exception("queue is empty");
       }
-      return el.Value;
+      return this.List.RemoveFirst().Value;
     }
 
-    public int Peek () {
-      if (this.List.First == null) {
+    public T Peek () {
+      if (this.Count == 0) {
         throw new Exception("queue is empty");
       }
       return this.List.First.Value;
