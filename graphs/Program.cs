@@ -1,5 +1,5 @@
+using QueueExample;
 using System;
-using System.Collections.Generic;
 
 namespace GraphExample {
   public class Program {
