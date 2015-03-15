@@ -1,3 +1,4 @@
+using LinkedListExample;
 using QueueExample;
 using System;
 
@@ -32,6 +33,20 @@ namespace GraphExample {
       }
     }
 
+    public static LinkedList<int>[] ToAdjList (int[,] adjmatrix) {
+      int size = adjmatrix.GetLength(0);
+      LinkedList<int>[] list = new LinkedList<int>[size];
+      for (int i = 0; i < size; i++) {
+        list[i] = new LinkedList<int>();
+        for (int j = 0; j < size; j++) {
+          if (adjmatrix[i, j] == 1) {
+            list[i].AddLast(j);
+          }
+        }
+      }
+      return list;
+    }
+
     public static void Main(string[] args) {
       int[,] adjmatrix = new int[,] {
         //1  2  3  4  5  6  7  8  9  10
@@ -46,6 +61,7 @@ namespace GraphExample {
         { 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
         { 0, 0, 0, 0, 1, 0, 0, 0, 1, 0}
       };
+      LinkedList<int>[] adjlist = ToAdjList(adjmatrix);
       Console.WriteLine("Depth First Search:");
       bool[] visitd = new bool[10];
       DFSVisit(0, visitd, adjmatrix);
