@@ -1,6 +1,7 @@
 using System;
 
 namespace HashTableExample {
+  // closed hashtable - open addressing
   public class KeyValuePair<TValue> {
     public int Key;
     public TValue Value;
