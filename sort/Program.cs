@@ -74,17 +74,17 @@ namespace SortExample {
 
     public static void Main(string[] args) {
       LinkedList<LinkedList<DataPoint>> rows = new LinkedList<LinkedList<DataPoint>>();
-      for (ulong i = 100; i <= 3000; i+= 100) {
+      for (ulong i = 100; i <= 2000; i+= 100) {
         LinkedList<DataPoint> res = benchmarkSort(i);
         rows.AddLast(res);
       }
       string line = new String('-', 65);
       Console.WriteLine(line);
-      Console.WriteLine("Size\t| BS\t| SS\t| IS\t| MS\t| QS\t| HS\t| RH\t| ");
+      Console.WriteLine("Size\t| BS\t| SS\t| IS\t| MS\t| QS\t| HS\t| RH");
       rows.Traverse(rows.First, (dps, odps) => {
-        Console.Write(dps[0].Size + "\t| ");
+        Console.Write(dps[0].Size);
         dps.Traverse(dps.First, (dp, odp) => {
-          Console.Write(dp.Time + "\t| ");
+          Console.Write("\t| " + dp.Time);
         });
         Console.WriteLine();
       });
