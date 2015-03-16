@@ -16,6 +16,18 @@ namespace HashTableExample {
     private bool[] occupied;
     private int m;
 
+    public int Count {
+      get {
+        int cnt = 0;
+        for (int i = 0; i < this.m; i++) {
+          if (this.occupied[i]) {
+            cnt++;
+          }
+        }
+        return cnt;
+      }
+    }
+
     public HashTable () {
       this.m = 11;
       this.table = new KeyValuePair<TValue>[this.m];
@@ -56,8 +68,8 @@ namespace HashTableExample {
 
     public TValue Remove (int key) {
       int hindex = getIndex(key);
-      if (hindex < 0) {
-        throw new Exception("could not hash key");
+      if (hindex < 0 || !this.occupied[hindex]) {
+        throw new Exception("could not find key");
       }
       TValue ret = this.table[hindex].Value;
       this.occupied[hindex] = false;
@@ -70,14 +82,31 @@ namespace HashTableExample {
       return ret;
     }
 
+    public TValue GetByKey (int key) {
+      int hindex = getIndex(key);
+      if (hindex < 0 || !this.occupied[hindex]) {
+        throw new Exception("could not find key");
+      }
+      return this.table[hindex].Value;
+    }
+
+    public TValue this[int key] {
+      get {
+        return GetByKey(key);
+      }
+      set {
+        Insert(key, value);
+      }
+    }
+
     public override string ToString () {
-      string ret = "";
+      string ret = "(" + this.Count + ")[\n";
       for (int i = 0; i < this.m; i++) {
         if (this.occupied[i]) {
-          ret += i + ": " + this.table[i].Key + "=" + this.table[i].Value +  "\n";
+          ret += "\t" + i + ": " + this.table[i].Key + "=" + this.table[i].Value +  "\n";
         }
       }
-      return ret;
+      return ret + "]";
     }
   }
 }

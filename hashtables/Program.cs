@@ -9,9 +9,11 @@ namespace HashTableExample {
       htable.Insert(11, "B");
       htable.Insert(55, "C");
       htable.Insert(110, "D");
-      Console.WriteLine(htable);
-      Console.WriteLine(htable.Remove(55));
-      Console.WriteLine(htable);
+      Console.WriteLine(htable + "\n");
+      Console.WriteLine("55: " + htable.Remove(55));
+      Console.WriteLine("324: " + htable[324]);
+      htable[777] = "ZZZ";
+      Console.WriteLine("\n" + htable);
     }
   }
 }
