@@ -2,6 +2,7 @@ using LinkedListExample;
 using System;
 
 namespace SortExample {
+  // O(n^2)
   public class BubbleSort<T> {
 
     public BubbleSort () {

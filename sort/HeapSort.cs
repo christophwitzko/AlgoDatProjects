@@ -3,6 +3,7 @@ using BinaryTreeExample;
 using System;
 
 namespace SortExample {
+  // O(n*log(n))
   public class HeapSort<T> {
 
     public HeapSort () {

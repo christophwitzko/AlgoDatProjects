@@ -2,6 +2,7 @@ using LinkedListExample;
 using System;
 
 namespace SortExample {
+  // O(n*log(n))
   public class MergeSort<T> {
     private readonly System.Collections.Generic.IComparer<T> comparer;
 

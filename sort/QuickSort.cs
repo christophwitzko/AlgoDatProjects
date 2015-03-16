@@ -2,6 +2,7 @@ using LinkedListExample;
 using System;
 
 namespace SortExample {
+  // O(n*log(n))
   public class QuickSort<T> {
 
     public QuickSort () {
