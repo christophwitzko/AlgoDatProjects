@@ -15,21 +15,16 @@ namespace HashTableExample {
     private KeyValuePair<TValue>[] table;
     private bool[] occupied;
     private int m;
+    public int Count;
 
-    public int Count {
+    public int Size {
       get {
-        int cnt = 0;
-        for (int i = 0; i < this.m; i++) {
-          if (this.occupied[i]) {
-            cnt++;
-          }
-        }
-        return cnt;
+        return this.m;
       }
     }
 
     public HashTable () {
-      this.m = 11;
+      this.m = 4;
       this.table = new KeyValuePair<TValue>[this.m];
       this.occupied = new bool[this.m];
     }
@@ -54,12 +49,14 @@ namespace HashTableExample {
     }
 
     public void Insert (KeyValuePair<TValue> kvp) {
+      Resize();
       int hindex = getIndex(kvp.Key);
       if (hindex < 0) {
         throw new Exception("could not hash key");
       }
       this.occupied[hindex] = true;
       this.table[hindex] = kvp;
+      this.Count++;
     }
 
     public void Insert (int key, TValue value) {
@@ -79,7 +76,26 @@ namespace HashTableExample {
         Insert(this.table[hindex]);
         hindex = (hindex + 1) % this.m;
       }
+      this.Count--;
       return ret;
+    }
+
+    public bool Resize () {
+      if (Math.Round((double) this.Size * 0.9) > (this.Count + 1)) {
+        return false;
+      }
+      KeyValuePair<TValue>[] oldTable = (KeyValuePair<TValue>[]) this.table.Clone();
+      bool[] oldOccupied = (bool[]) this.occupied.Clone();
+      this.m *= 2;
+      this.table = new KeyValuePair<TValue>[this.m];
+      this.occupied = new bool[this.m];
+      this.Count = 0;
+      for (int i = 0; i < oldTable.Length; i++) {
+        if (oldOccupied[i]) {
+          Insert(oldTable[i]);
+        }
+      }
+      return true;
     }
 
     public TValue GetByKey (int key) {
@@ -100,7 +116,7 @@ namespace HashTableExample {
     }
 
     public override string ToString () {
-      string ret = "(" + this.Count + ")[\n";
+      string ret = "(" + this.Count + "/" + this.Size + ")[\n";
       for (int i = 0; i < this.m; i++) {
         if (this.occupied[i]) {
           ret += "\t" + i + ": " + this.table[i].Key + "=" + this.table[i].Value +  "\n";
