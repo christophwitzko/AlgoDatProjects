@@ -24,7 +24,7 @@ namespace HashTableExample {
     }
 
     public HashTable () {
-      this.m = 4;
+      this.m = 5;
       this.table = new KeyValuePair<TValue>[this.m];
       this.occupied = new bool[this.m];
     }
