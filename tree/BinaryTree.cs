@@ -167,7 +167,6 @@ namespace BinaryTreeExample {
       } else {
         parrent.Right = null;
       }
-      Console.WriteLine(parrent);
       BinaryTreeNode<T> tmp = deleteNode.ShallowCopy();
       deleteNode.Value = suc.Value;
       this.count--;
